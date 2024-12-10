@@ -1,6 +1,6 @@
 <div class="max-w-6xl mx-auto my-16">
 
-    <h5 class="text-center font-bold text-white py-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-md shadow-lg" style="font-size: 35px;">
+    <h5 class="text-center font-bold text-white py-4 rounded-md shadow-lg" style="font-size: 35px;">
         Users
     </h5>
 
@@ -31,7 +31,7 @@
                         Add Friend
                     </x-primary-button>
 
-                    <x-secondary-button style="margin-left: 8px;">
+                    <x-secondary-button style="margin-left: 8px;" wire:click="message({{$user->id}})">
                         Message
                     </x-secondary-button>
 
