@@ -27,6 +27,8 @@ return new class extends Migration
             $table->timestamp('receiver_deleted_at')->nullable();
             $table->timestamp('sender_deleted_at')->nullable();
 
+            $table->text('body')->nullable();
+
             $table->timestamps();
         });
     }
