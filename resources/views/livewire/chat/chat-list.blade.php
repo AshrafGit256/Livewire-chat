@@ -36,26 +36,32 @@
         {{---- chat-list ------}}
 
         <ul class="p-2 grid w-full space-y-2">
-            <li class="py-3 hover:bg-gray-50 rounded-2xl dark:hover:bg-gray-200 transition-colors duration-150 flex gap-4 relative w-full cursor-pointer px-2">
+
+            @if($conversations)
+
+            @foreach($conversations as $key=> $conversation)
+
+            
+            <li class="py-3 hover:bg-gray-50 rounded-2xl dark:hover:bg-gray-200 transition-colors duration-150 flex gap-4 relative w-full cursor-pointer px-2 {{$conversation->id==$selectedConversation->id ? 'bg-gray-100/70':''}}">
                 <a href="#" class="shrink-0">
 
-                    <x-avatar />
+                <x-avatar src="https://randomuser.me/api/portraits/men/{{$key}}.jpg" />
 
                 </a>
 
                 <aside class="grid grid-cols-12 w-full">
 
-                    <a href="#" class="col-span-11 border-b pb-2 border-gray-300 relative overflow-hidden truncate leading-5 w-full flex-nowrap p-1">
+                    <a href="{{route('chat',$conversation->id)}}" class="col-span-11 border-b pb-2 border-gray-300 relative overflow-hidden truncate leading-5 w-full flex-nowrap p-1">
 
                         {{---- name and date----}}
                         <div class="flex justify-between w-full items-center">
 
-                            <h6 class="truncate font-medium tracking-wider text-gray-500">
-                                John Doe
+                            <h6 class="truncate font-medium tracking-wider text-gray-900">
+                                {{$conversation->getReceiver()->name}}
                             </h6>
 
                             <small class="text-gray-700">
-                                5d
+                                 {{$conversation->messages?->last()?->created_at?->shortAbsoluteDiffForHumans()}}
                             </small>
 
                         </div>
@@ -141,6 +147,11 @@
                     </div>
                 </aside>
             </li>
+            @endforeach
+
+            @else
+
+            @endif
         </ul>
 
     </main>
