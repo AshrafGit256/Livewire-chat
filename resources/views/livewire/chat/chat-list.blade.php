@@ -1,4 +1,22 @@
-<div x-data="{ type: 'all' }" class="flex flex-col transition-all h-full overflow-hidden">
+<div x-data="{ type: 'all' , query:@entangle('query')}" 
+     x-init="
+
+     setTimeout(()=>{
+
+        conversationElement = document.getElementById('conversation-'+query);
+
+        //scroll to the element 
+
+        if(conversationElement)
+        {
+            conversationElement.scrollIntoView({'behavior':'smooth'});
+        }
+     }
+     
+     ),200;
+     
+     
+     " class="flex flex-col transition-all h-full overflow-hidden">
     <header class="px-3 z-10 bg-white sticky top-0 w-full py-2">
 
         <div class="border-b justify-between flex items-center pb-2">
@@ -31,7 +49,7 @@
 
     </header>
 
-    <main class="overflow-y-scroll-hidden overflow-hidden grow h-full relative" style="contain: content;">
+    <main class="overflow-y-scroll overflow-hidden grow h-full relative" style="contain: content;">
 
         {{---- chat-list ------}}
 
@@ -42,7 +60,7 @@
             @foreach($conversations as $key=> $conversation)
 
             
-            <li class="py-3 hover:bg-gray-50 rounded-2xl dark:hover:bg-gray-200 transition-colors duration-150 flex gap-4 relative w-full cursor-pointer px-2 {{$conversation->id==$selectedConversation->id ? 'bg-gray-100/70':''}}">
+            <li id="conversation-{{$conversation->id}}" wire:key="{{$conversation->id}}" class="py-3 hover:bg-gray-50 rounded-2xl dark:hover:bg-gray-200 transition-colors duration-150 flex gap-4 relative w-full cursor-pointer px-2 {{$conversation->id==$selectedConversation->id ? 'bg-gray-100/70':''}}">
                 <a href="#" class="shrink-0">
 
                 <x-avatar src="https://randomuser.me/api/portraits/men/{{$key}}.jpg" />
